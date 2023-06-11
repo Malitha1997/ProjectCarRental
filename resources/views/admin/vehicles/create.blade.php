@@ -33,8 +33,12 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary text-right">Save</button>
-
+    <button type="submit" class="btn btn-primary text-right" onclick="myFunction()">Save</button>
+    <script>
+        function myFunction() {
+          alert("Are sure to add this vehicle?");
+        }
+    </script>
   </form>
 </div>
 @endsection

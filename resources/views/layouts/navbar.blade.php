@@ -43,7 +43,7 @@
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <a class="nav-link text-dark" href="{{ route('vehicles.index') }}" ><span>&nbsp;<span style="font-weight: normal ">List Vehicle</span></span></a>
                     <a class="nav-link text-dark" href="{{ route('vehicles.create') }}" ><span>&nbsp;<span style="font-weight: normal ">Add Vehicle</span></span></a>
-                 <a class="nav-link text-dark" href="/rental_list" ><span>&nbsp;<span style="font-weight: normal ">Rented Vehicle</span></span></a>
+                    <a class="nav-link text-dark" href="{{ route('bookings.index') }}" ><span>&nbsp;<span style="font-weight: normal ">Rented Vehicle</span></span></a>
                 </div>
             </div>
             </ul>

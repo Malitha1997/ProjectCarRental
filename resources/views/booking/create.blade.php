@@ -9,23 +9,28 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
         <title>Car Rental-Home</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     </head>
 
     <body>
-        <form style="padding-left: 56px;margin-right: 68px;margin-top: 50px" method="POST" action="{{route('bookings.store')}}">
+        <form style="padding-left: 56px;margin-right: 68px;margin-top: 50px" method="POST" action="{{route('bookings.store')}}" onmousemove="myFunction()">
             {{csrf_field()}}
                <div class="row">
                 <div class="col">
                     <label for="pickup_date">Pickup Date</label>
                 </div>
                 <div class="col">
-                    <input type="date" class="form-control" name="pickup_date" >
+                    <input type="date" class="form-control" name="pickup_date" id="myDate">
                 </div>
                 <div class="col">
                     <label for="dropoff_date">Drop-off Date</label>
                 </div>
                 <div class="col">
-                    <input type="date" class="form-control" name="dropoff_date" >
+                    <input type="date" class="form-control" name="dropoff_date" id="dDate">
                 </div>
                </div>
 
@@ -34,13 +39,18 @@
                     <label for="vehicle_name">Select Vehicle</label>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="vehicle_name" >
+                    <input type="text" class="form-control" name="vehicle_name" id="vehicle_name" >
+                    <input type="hidden" name="vehicle_id" id="vehicle_id">
+                    <input type="hidden" name="rent_cost" id="rent_cost"  >
                 </div>
                 <div class="col">
                     <label for="total_amount">Total Rental</label>
+
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="total_amount" >
+                    <div id="total_amount"></div>
+                    <input type="hidden" class="form-control" name="total_amount" id="total">
+
                 </div>
                </div>
 
@@ -51,10 +61,10 @@
                </div>
                <div class="row">
                 <div class="col">
-                    <label for="customer_id">Name</label>
+                    <label for="customer_name">Name</label>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="customer_id" >
+                    <input type="text" class="form-control" name="customer_name" >
                 </div>
                </div>
                <div class="row">
@@ -82,55 +92,56 @@
                 </div>
                </div>
                <div class="row">
-                <div class="col"><button class="btn btn-primary" id="btn_save" type="submit">Submit</button></div>
-            </div>
-        </form>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
-    $(document).ready(function(){
-        $(document).on('click','#vehicle_name', function() {
-            var route = "{{ route('livesearch') }}";
-            $(this).autocomplete({
-                source: function( request, response ) {
-                    $.ajaxSetup({
-
-                        headers: {
-
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
+                <div class="col"><button class="btn btn-primary" id="btn_save" type="submit" onclick="myFunction2()">Submit</button>
+                    <script>
+                        function myFunction2() {
+                          alert("Are you sure to book this vehicle?");
                         }
+                    </script>
+                </div>
+            </div>
+            <script type="text/javascript">
+                var path = "{{ route('autocomplete') }}";
+                $( "#vehicle_name" ).autocomplete({
+                    source: function( request, response ) {
+                        start= document.getElementById("myDate").value;
+                        drop= document.getElementById("dDate").value;
 
-                    });
-                   // Fetch data
-                    $.ajax({
-                        url:route,
-                        type: 'post',
+                      $.ajax({
+                        url: path,
+                        type: 'GET',
                         dataType: "json",
                         data: {
-                            query: request.term
+                            start:start,
+                            drop:drop,
+                           search: request.term
                         },
                         success: function( data ) {
-                        response( data );
-
+                           response( data );
                         }
-                    });
-                },
-                select: function (event, ui) {
-                    // Set selection
-                    var id = event.target.id
-                    $('#'+id).val(ui.item.label); // display the selected text
-                    $('#'+id+'id').val(ui.item.value); // save selected id to input
-                    return false;
-                }
-            });
-        });
+                      });
+                    },
+
+                    select: function (event, ui) {
+                        console.log(ui.item);
+                       $('#vehicle_name').val(ui.item.label);
+                       $('#vehicle_id').val(ui.item.id);
+                       $('#rent_cost').val(ui.item.rental_per_day);
+
+                       return false;
+                    },
 
 
-    });
-
-
-</script>
+                  });
+                  function myFunction(e) {
+                     mylement = document.getElementById("rent_cost").value;
+                     start= document.getElementById("myDate").valueAsDate;
+                    drop= document.getElementById("dDate").valueAsDate;
+                    var sub = drop.getDate()-start.getDate();
+                    document.getElementById("total_amount").innerHTML = mylement * sub;
+                    document.getElementById("total").value = mylement * sub;
+                  }
+            </script>
+        </form>
     </body>
-
 </html>

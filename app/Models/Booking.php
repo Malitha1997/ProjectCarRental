@@ -12,9 +12,9 @@ class Booking extends Model
     protected $fillable = [
         'pickup_date',
         'dropoff_date',
-        'vehicle_id',
+        'vehicle_name',
         'total_amount',
-        'customer_id',
+        'customer_name',
         'contact_number',
         'customer_email',
         'postal_address'

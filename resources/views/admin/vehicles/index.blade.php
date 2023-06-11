@@ -21,7 +21,7 @@
     @foreach ($user_vehicles as $key => $vehicles)
     <tr>
         <td>{{ $vehicles->vehicle_name }}</td>
-        <td>{{ $vehicles->rental_per_day }}</td>
+        <td>Rs.{{ $vehicles->rental_per_day }}</td>
         <td> <a class="btn btn-success" href="{{ route('vehicles.edit',$vehicles->id) }}">Edit</a></td>
     </tr>
     @endforeach
