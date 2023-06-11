@@ -36,11 +36,11 @@ class SearchController extends Controller
      */
 
     public function autocomplete(Request $request)
-    {//dd($request);
+    {
         $data = Vehicle::select("vehicle_name as value","rental_per_day","id")
         ->where('vehicle_name', 'LIKE', '%'. $request->get('search'). '%')
         ->get();
-        //dd($data);
-return response()->json($data);
+
+        return response()->json($data);
     }
 }

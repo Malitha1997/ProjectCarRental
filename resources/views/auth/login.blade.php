@@ -54,7 +54,7 @@
                         </div>
                     </form>
                 </div>
-                <a href="/booking">Rent A Car</a>
+                <a href="{{ route ('bookings.create') }}">Rent A Car</a>
             </div>
         </div>
     </div>

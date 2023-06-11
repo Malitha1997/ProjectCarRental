@@ -19,7 +19,7 @@ class BookingController extends Controller
     }
 
     public function store(Request $request){
-        //dd($request);
+
         request()->validate([
             'pickup_date'=>'required',
             'dropoff_date'=>'required',
@@ -30,7 +30,7 @@ class BookingController extends Controller
             'customer_email'=>'required',
             'postal_address'=>'required'
         ]);
-//dd($request);
+
 
         $customer=new Customer;
         $customer->customer_name=$request->customer_name;
@@ -39,7 +39,7 @@ class BookingController extends Controller
         $customer->postal_address=$request->postal_address;
 
         $customer->save();
-//dd($customer->id);
+
         $booking=new Booking;
 
         $booking->pickup_date=$request->pickup_date;
@@ -50,25 +50,8 @@ class BookingController extends Controller
         $booking->save();
 
         return redirect()->route('bookings.create')
-                            ->with('success','Booking created successfully.');
+                            ->with('success','You successfully booked a vehicle!');
     }
 
-    // public function livesearch(Request $request)
-    // { //dd('hi');
-    //     $query = $request->get('query');
-    //       $vehicles = Vehicle::where('vehicle_name', 'LIKE', '%'. $query. '%')->get();
-    //       //dd($user->getRoleNames());
-
-
-    //       foreach($vehicles as $vehicle){
-    //         if($vehicle != null){
-
-    //          $response[] = array("value"=>$vehicle->id,"label"=>$vehcle->vehicle_name);
-
-    //             }
-    //         }
-
-    //       return response()->json($response);
-
-    // }
+    
 }

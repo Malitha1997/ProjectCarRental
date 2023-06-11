@@ -7,7 +7,7 @@
 
         <div class="pull-left">
 
-            <h2 class="text-dark mb-1">Vehicle List</h2>
+            <h2 class="text-dark mb-1">Rented Vehicles</h2>
 
         </div>
     </div>

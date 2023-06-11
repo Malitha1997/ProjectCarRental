@@ -30,14 +30,14 @@ class VehicleController extends Controller
             'vehicle_name'=> 'required|string|min:1|max:255',
             'rental_per_day'=> 'required|string',
         ]);
-        //dd($request);
+
         $vehicles->vehicle_name=$request->vehicle_name;
         $vehicles->rental_per_day=$request->rental_per_day;
         $vehicles->user_id = Auth::id();
 
         $vehicles->save();
 
-        // $vehicles->users()->attach($request->user);
+        
 
         return redirect()->route('vehicles.index')
                         ->with('success','Vehicle created successfully.');

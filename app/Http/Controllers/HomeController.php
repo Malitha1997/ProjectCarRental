@@ -35,11 +35,7 @@ class HomeController extends Controller
 
      */
 
-    public function index(): View
 
-    {
-        return view('home');
-    }
 
 
 
@@ -54,7 +50,6 @@ class HomeController extends Controller
      */
 
     public function adminHome(): View
-
     {
         return view('admin.vehicles.create');
     }
@@ -71,9 +66,6 @@ class HomeController extends Controller
 
      */
 
-    public function managerHome(): View
-    {
-        return view('managerHome');
-    }
+   
 
 }

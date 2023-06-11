@@ -17,6 +17,12 @@
     </head>
 
     <body>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
+
         <form style="padding-left: 56px;margin-right: 68px;margin-top: 50px" method="POST" action="{{route('bookings.store')}}" onmousemove="myFunction()">
             {{csrf_field()}}
                <div class="row">
@@ -45,12 +51,10 @@
                 </div>
                 <div class="col">
                     <label for="total_amount">Total Rental</label>
-
                 </div>
                 <div class="col">
                     <div id="total_amount"></div>
                     <input type="hidden" class="form-control" name="total_amount" id="total">
-
                 </div>
                </div>
 
@@ -106,7 +110,6 @@
                     source: function( request, response ) {
                         start= document.getElementById("myDate").value;
                         drop= document.getElementById("dDate").value;
-
                       $.ajax({
                         url: path,
                         type: 'GET',
@@ -134,12 +137,12 @@
 
                   });
                   function myFunction(e) {
-                     mylement = document.getElementById("rent_cost").value;
+                     myElement = document.getElementById("rent_cost").value;
                      start= document.getElementById("myDate").valueAsDate;
                     drop= document.getElementById("dDate").valueAsDate;
                     var sub = drop.getDate()-start.getDate();
-                    document.getElementById("total_amount").innerHTML = mylement * sub;
-                    document.getElementById("total").value = mylement * sub;
+                    document.getElementById("total_amount").innerHTML = myElement * sub;
+                    document.getElementById("total").value = myElement * sub;
                   }
             </script>
         </form>
